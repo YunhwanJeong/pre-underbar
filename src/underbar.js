@@ -3,9 +3,9 @@
 
   window._ = {};
 
-  // Returns whatever value is passed as the argument. This function doesn't
-  // seem very useful, but remember it--if a function needs to provide an
-  // iterator when the user does not pass one in, this will be handy.
+  // argument로 무엇이 전달되든간에, 있는 그대로 리턴하세요.
+  // 이 함수가 쓸데없어 보일지 모르겠지만, 기억하세요! - 만약 함수에 iterator가 필요하고,
+  // 뭐라도 넘겨줘야 하는 상황에는 이 함수가 유용할 것입니다.
   _.identity = function(val) {
   };
 
@@ -13,42 +13,44 @@
   * COLLECTIONS
   * ===========
   *
-  * In this section, we'll have a look at functions that operate on collections
-  * of values; in JavaScript, a 'collection' is something that can contain a
-  * number of values--either an array or an object.
+  * 이 섹션에서는 우리는 collection이라고 불리는 값들의 집합을 이용하는 함수에 집중할겁니다.
+  * JavaScript에서는 collection은 값들을 포함하며, 배열 혹은 객체가 될 수 있습니다.
   *
   *
   * IMPORTANT NOTE!
   * ===========
   *
-  * The .first function is implemented for you, to help guide you toward success
-  * in your work on the following functions. Whenever you see a portion of the
-  * assignment pre-completed, be sure to read and understand it fully before
-  * you proceed. Skipping this step will lead to considerably more difficulty
-  * implementing the sections you are responsible for.
+  * .first 함수가 이미 구현되어 있습니다. 이 함수를 가이드 삼아, 앞으로 나올 함수들을 구현해보세요.
+  * 사전에 이미 완료된 과제의 일부분을 만나게 될 경우, 반드시 코드를 잘 읽어보고 이해하고 넘어가십시오.
+  * 이러한 과정을 지나친다면, 앞으로 구현하게 될 함수가 훨씬 더 어렵게 느껴질겁니다.
   */
 
-  // Return an array of the first n elements of an array. If n is undefined,
-  // return just the first element.
+  // 배열의 처음 n개의 element를 담은 배열을 리턴하세요.
+  // 만일 n이 undefined일 경우, 단순히 첫번째 element를 리턴하세요.
   _.first = function(array, n) {
     return n === undefined ? array[0] : array.slice(0, n);
   };
 
-  // Like first, but for the last elements. If n is undefined, return just the
-  // last element.
+  // first와 비슷하게, 마지막 n개의 element를 담은 배열을 리턴하세요.
+  // 만일 n이 undefined일 경우, 단순히 마지막 element를 리턴하세요.
   _.last = function(array, n) {
   };
 
-  // Call iterator(value, key, collection) for each element of collection.
-  // Accepts both arrays and objects.
+  // iterator(value, key, collection)를 collection의 각각의 key-value pair에 대해 호출하세요.
+  // iterator는 함수로 전달되며, 쉽게 말해 반복해서 실행하는 함수입니다.
+  // collection으로 배열과 객체를 다 받을 수 있어야 합니다.
+  // 참고로 배열의 value는 element이며, key는 index입니다.
   //
-  // Note: _.each does not have a return value, but rather simply runs the
-  // iterator function over each item in the input collection.
+  // Note: _.each 는 아무런 값도 리턴하지 않습니다.
+  // 다만 단순히 iterator 함수를 전달되는 collection의 각 항목에 대해 실행할 뿐입니다.
+  //
+  // Note 2: 이 문제를 풀기 위해서는 여러분이 spec 디렉토리에 있는 테스트 케이스의 요구사항을 잘 살펴볼 필요가 있습니다.
+  // 실제로 어떻게 사용되는지 각 테스트 케이스 항목에 잘 나와 있습니다.
   _.each = function(collection, iterator) {
   };
 
-  // Returns the index at which value can be found in the array, or -1 if value
-  // is not present in the array.
+  // target으로 전달되는 값이 array에서 발견되면, 그 index를 리턴하세요.
+  // 만일 array에서 발견할 수 없다면 -1을 리턴하세요.
   _.indexOf = function(array, target) {
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
@@ -64,37 +66,30 @@
     return result;
   };
 
-  // Return all elements of an array that pass a truth test.
+  // 테스트 함수를 통과하는 모든 element를 담은 배열을 리턴하세요.
   _.filter = function(collection, test) {
   };
 
-  // Return all elements of an array that don't pass a truth test.
+  // 테스트 함수를 통과하지 않는 모든 element를 담은 배열을 리턴하세요.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
 
-  // Produce a duplicate-free version of the array.
+  // element가 중복되지 않는 새로운 array를 만드세요.
   _.uniq = function(array) {
   };
 
 
-  // Return the results of applying an iterator to each element.
+  // iterator를 각 element에 적용한 결과를 담은 새로운 array를 리턴하세요.
   _.map = function(collection, iterator) {
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
   };
 
-  /*
-  * TIP: map is really handy when you want to transform an array of
-  * values into a new array of values. _.pluck() is solved for you
-  * as an example of this.
-  */
-
-  // Takes an array of objects and returns and array of the values of
-  // a certain property in it. E.g. take an array of people and return
-  // an array of just their ages
+  // 객체의 배열을 가져와서, 그 안에 있는 특정 속성의 값의 배열을 리턴하세요.
+  // 예를 들어, people이라는 객체가 담긴 배열을 가져와서, 그들의 나이만 리턴할 수 있어야 합니다.
   _.pluck = function(collection, key) {
     // TIP: map is really handy when you want to transform an array of
     // values into a new array of values. _.pluck() is solved for you
@@ -104,40 +99,36 @@
     });
   };
 
-  // Reduces an array to a single value by repetitively calling
-  // iterator(accumulator, item) for each item. accumulator should be
-  // the return value of the previous iterator call.
+  // 각 항목에 대해 iterator(accumulator, item)를 반복적으로 호출하여, Reduces an array to a single value by repetitively calling
+  // 하나의 값으로 줄입니다. accumulator는 누적값으로, 이전 iterator 호출의 반환값이어야 합니다.
   //
-  // You can pass in a starting value for the accumulator as the third argument
-  // to reduce. If no starting value is passed, the first element is used as
-  // the accumulator, and is never passed to the iterator. In other words, in
-  // the case where a starting value is not passed, the iterator is not invoked
-  // until the second element, with the first element as its second argument.
+  // reduce에 대한 세번째 argument로 초기값을 전달 할 수 있습니다.
+  // 만일 초기값이 전달되지 않으면, 첫번재 element가 accumulator로 사용되며, iterator에 전달되지 않습니다.
+  // 즉, 초기값이 전달되지 않은 경우, iterator는 두번째 element로부터 시작합니다.
   //
-  // Example:
-  //   var numbers = [1,2,3];
-  //   var sum = _.reduce(numbers, function(total, number){
+  // 예제:
+  //   const numbers = [1,2,3];
+  //   const sum = _.reduce(numbers, function(total, number){
   //     return total + number;
-  //   }, 0); // should be 6
+  //   }, 0); // 6이 리턴됩니다
   //
-  //   var identity = _.reduce([5], function(total, number){
+  //   const identity = _.reduce([5], function(total, number){
   //     return total + number * number;
-  //   }); // should be 5, regardless of the iterator function passed in
-  //          No accumulator is given so the first element is used.
+  //   }); // 5가 리턴됩니다, 전달한 iterator와 관계없이, 첫번째 element가 즉시 사용됩니다.
   _.reduce = function(collection, iterator, accumulator) {
   };
 
-  // Determine if the array or object contains a given value (using `===`).
+  // 배열 또는 객체가 주어진 값을 포함하는지 체크합니다. (`===` 연산자를 사용해서 판단합니다.)
   _.contains = function(collection, target) {
   };
 
 
-  // Determine whether all of the elements match a truth test.
+  // 모든 element가 iterator에 의해 truthy한지 체크합니다.
   _.every = function(collection, iterator) {
   };
 
-  // Determine whether any of the elements pass a truth test. If no iterator is
-  // provided, provide a default one
+  // element가 하나라도 iterator에 의해 truthy한지 체크합니다.
+  // iterator가 없다면, element 그 자체가 truthy한지 체크하세요.
   _.some = function(collection, iterator) {
   };
 
@@ -146,25 +137,23 @@
   * OBJECTS
   * =======
   *
-  * In this section, we'll look at a couple of helpers for merging objects.
+  * 이 섹션에서는, 객체를 서로 합쳐주는 몇개의 도우미 함수를 만들겁니다.
   */
 
-  // Extend a given object with all the properties of the passed in
-  // object(s).
+  // 주어진 객체를 전달된 모든 속성으로 확장합니다.
   //
-  // Example:
+  // 예제:
   //   var obj1 = {key1: "something"};
   //   _.extend(obj1, {
   //     key2: "something new",
   //     key3: "something else new"
   //   }, {
   //     bla: "even more stuff"
-  //   }); // obj1 now contains key1, key2, key3 and bla
+  //   }); // obj1은 이제 다음 키를 포함합니다. key1, key2, key3, bla
   _.extend = function(obj) {
   };
 
-  // Like extend, but doesn't ever overwrite a key that already
-  // exists in obj
+  // extend와 비슷하지만, 이번엔 이미 존재하는 key에 대해 값을 덮어쓰기 하지 않습니다.
   _.defaults = function(obj) {
   };
 
@@ -173,32 +162,30 @@
   * FUNCTIONS
   * =========
   *
-  * Now we're getting into function decorators, which take in any function
-  * and return out a new version of the function that works somewhat differently
+  * 이번엔 함수 데코레이터(decorator)를 사용합니다. 함수 데코레이터는 쉽게 말해, 어떤 함수를 받아들이고
+  * 다소 다르게 작동하는 새로운 버전의 함수를 리턴하는 함수를 의미합니다.
   */
 
-  // Return a function that can be called at most one time. Subsequent calls
-  // should return the previously returned value.
+  // 최대 한번만 호출할 수 있는 함수를 리턴합니다. 이후의 호출은 이전에 한번 리턴된 값만을 리턴해야 합니다.
   _.once = function(func) {
-    // TIP: These variables are stored in a "closure scope" (worth researching),
-    // so that they'll remain available to the newly-generated function every
-    // time it's called.
+    // TIP: 아래 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
+    // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
     var alreadyCalled = false;
 
     // TIP: We'll return a new function that delegates to the old one, but only
     // if it hasn't been called before.
     return function() {
-      // TIP: use arguments keyword, or spread operator.
+      // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
       return result;
     };
   };
 
-  // Delays a function for the given number of milliseconds, and then calls
-  // it with the arguments supplied.
+  // 주어진 시간 (밀리초) 동안 함수를 지연한 다음 제공된 argument로 함수를 호출합니다.
   //
-  // The arguments for the original function are passed after the wait
-  // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
-  // call someFunction('a', 'b') after 500ms
+  // 원래 함수에 대한 argument는 wait parameter 뒤에 전달됩니다.
+  // 예를 들어, 다음을 호출할 경우
+  // _.delay(someFunction, 500, 'a', 'b');
+  // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
   _.delay = function(func, wait) {
   };
 
@@ -208,18 +195,16 @@
   * ==============================
   */
 
-  // Takes a multidimensional array and converts it to a one-dimensional array.
-  // The new array should contain all elements of the multidimensional array.
+  // 다차원 배열을 가져와서, 1차원 배열로 변환합니다.
+  // 새 배열에는 다차원 배열의 모든 요소가 포함되어야 합니다.
   //
-  // Hint: Use Array.isArray to check if something is an array
+  // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
   _.flatten = function(nestedArray, result) {
   };
 
-  // Randomizes the order of an array's contents.
+  // 배열 내용의 순서를 랜덤하게 변경합니다.
   //
-  // TIP: This function's test suite will ask that you not modify the original
-  // input array. For a tip on how to make a copy of an array, see:
-  // http://mdn.io/Array.prototype.slice
+  // TIP: 이 함수는 immutable해야 합니다.
   _.shuffle = function(array) {
   };
 
