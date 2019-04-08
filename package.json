@@ -1,0 +1,26 @@
+{
+  "name": "pre-underbar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha .test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codestates/PRE-exercise-underbar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codestates/PRE-exercise-underbar/issues"
+  },
+  "homepage": "https://github.com/codestates/PRE-exercise-underbar#readme",
+  "dependencies": {
+    "mocha": "^6.0.2",
+    "sinon": "^7.3.1"
+  }
+}
