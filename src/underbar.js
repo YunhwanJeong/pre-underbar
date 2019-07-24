@@ -7,6 +7,7 @@
   // 이 함수가 쓸데없어 보일지 모르겠지만, 기억하세요! - 만약 함수에 iterator가 필요하고,
   // 뭐라도 넘겨줘야 하는 상황에는 이 함수가 유용할 것입니다.
   _.identity = function(val) {
+    return val;
   };
 
   /**
@@ -34,6 +35,10 @@
   // first와 비슷하게, 마지막 n개의 element를 담은 배열을 리턴하세요.
   // 만일 n이 undefined일 경우, 단순히 마지막 element를 리턴하세요.
   _.last = function(array, n) {
+    if (n === 0) {
+      return [];
+    }
+    return n === undefined ? array[array.length - 1] : array.slice(-n);
   };
 
   // iterator(value, key, collection)를 collection의 각각의 key-value pair에 대해 호출하세요.
