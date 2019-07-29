@@ -52,8 +52,14 @@
   // Note 2: 이 문제를 풀기 위해서는 여러분이 spec 디렉토리에 있는 테스트 케이스의 요구사항을 잘 살펴볼 필요가 있습니다.
   // 실제로 어떻게 사용되는지 각 테스트 케이스 항목에 잘 나와 있습니다.
   _.each = function(collection, iterator) {
-    for (let key in collection) {
-      iterator.call(key);
+    if (Array.isArray(collection)) {
+      for (let i = 0; i < collection.length; i++) {
+        iterator(collection[i], i, collection);
+      }
+    } else {
+      for (let key in collection) {
+        iterator(collection[key], key, collection);
+      }
     }
   };
 
@@ -76,21 +82,55 @@
 
   // 테스트 함수를 통과하는 모든 element를 담은 배열을 리턴하세요.
   _.filter = function(collection, test) {
+    var filteredArr = [];
+    
+    _.each(collection, function (el) {
+      if (test(el)) {
+        filteredArr.push(el);
+      }
+    });
+
+    return filteredArr;
   };
 
   // 테스트 함수를 통과하지 않는 모든 element를 담은 배열을 리턴하세요.
   _.reject = function(collection, test) {
+    var filteredArr = [];
+    
+    _.each(collection, function (el) {
+      if (!test(el)) {
+        filteredArr.push(el);
+      }
+    });
+
+    return filteredArr;
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
   };
 
   // element가 중복되지 않는 새로운 array를 만드세요.
   _.uniq = function(array) {
+    var noOverlapArr = [];
+
+    _.each(array, function (el) {
+      if (_.indexOf(noOverlapArr, el) === -1) {
+        noOverlapArr.push(el);
+      }
+    })
+
+    return noOverlapArr;
   };
 
 
   // iterator를 각 element에 적용한 결과를 담은 새로운 array를 리턴하세요.
   _.map = function(collection, iterator) {
+    var mapedArr = [];
+
+    _.each(collection, function (el, index, collection) {
+      mapedArr.push(iterator(el, index, collection));
+    })
+
+    return mapedArr;
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
@@ -124,6 +164,11 @@
   //     return total + number * number;
   //   }); // 5가 리턴됩니다, 전달한 iterator와 관계없이, 첫번째 element가 즉시 사용됩니다.
   _.reduce = function(collection, iterator, accumulator) {
+    if (accumulator === undefined) {
+      
+    } else {
+
+    }
   };
 
   // 배열 또는 객체가 주어진 값을 포함하는지 체크합니다. (`===` 연산자를 사용해서 판단합니다.)
