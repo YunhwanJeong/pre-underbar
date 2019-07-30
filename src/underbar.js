@@ -164,31 +164,85 @@
   //     return total + number * number;
   //   }); // 5가 리턴됩니다, 전달한 iterator와 관계없이, 첫번째 element가 즉시 사용됩니다.
   _.reduce = function(collection, iterator, accumulator) {
-    if (collection.length === 1 && accumulator === undefined) {
-      return collection[0];
-    } else if (collection.length === 0 && accumulator !== undefined) {
+    if (accumulator === undefined) {
+      accumulator = collection[0];
+      for (let i = 1; i < collection.length; i++) {
+        accumulator = iterator(accumulator, collection[i]);
+      }
       return accumulator;
-    }
-
-    if (accumulator !== undefined) {
-      _.each(collection, function (val) {
-        
-      })
+    } else {
+      for (let i = 0; i < collection.length; i++) {
+        accumulator = iterator(accumulator, collection[i]);
+      }
+      return accumulator;
     }
   };
 
   // 배열 또는 객체가 주어진 값을 포함하는지 체크합니다. (`===` 연산자를 사용해서 판단합니다.)
+  /**
+   * 배열 - indexof
+   * 객체 - for in
+   */
   _.contains = function(collection, target) {
+    if (Array.isArray(collection)) {
+      if(_.indexOf(collection, target) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      for (let key in collection) {
+        if (collection[key] === target) {
+          return true;
+        }
+      }
+      return false;
+    }
   };
 
 
   // 모든 element가 iterator에 의해 truthy한지 체크합니다.
+  /** pseudo code
+   * -
+   */
   _.every = function(collection, iterator) {
-  };
+    let isTruthy = true;
+
+    if (iterator === undefined) {
+      _.each(collection, function (val) {
+        if (!val) {
+          isTruthy = false;
+        }
+      })
+    } else {
+      _.each(collection, function (val) {
+        if (!iterator(val)) {
+          isTruthy = false;
+        }
+      });
+    }
+    return isTruthy;
+}
 
   // element가 하나라도 iterator에 의해 truthy한지 체크합니다.
   // iterator가 없다면, element 그 자체가 truthy한지 체크하세요.
   _.some = function(collection, iterator) {
+    let isTruthy = false;
+
+    if (iterator === undefined) {
+      _.each(collection, function (val) {
+        if (val) {
+          isTruthy = true;
+        }
+      })
+    } else {
+      _.each(collection, function (val) {
+        if (iterator(val)) {
+          isTruthy = true;
+        }
+      });
+    }
+    return isTruthy;
   };
 
 
