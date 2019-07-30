@@ -164,10 +164,16 @@
   //     return total + number * number;
   //   }); // 5가 리턴됩니다, 전달한 iterator와 관계없이, 첫번째 element가 즉시 사용됩니다.
   _.reduce = function(collection, iterator, accumulator) {
-    if (accumulator === undefined) {
-      
-    } else {
+    if (collection.length === 1 && accumulator === undefined) {
+      return collection[0];
+    } else if (collection.length === 0 && accumulator !== undefined) {
+      return accumulator;
+    }
 
+    if (accumulator !== undefined) {
+      _.each(collection, function (val) {
+        
+      })
     }
   };
 
