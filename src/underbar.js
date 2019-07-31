@@ -263,11 +263,29 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1은 이제 다음 키를 포함합니다. key1, key2, key3, bla
+  /**pseudo code
+   * 인자로 전달된 모든 객체 & 속성 loop 돌면서 각 key-value 쌍을 obj로 할당.
+   * 
+   */
   _.extend = function(obj) {
+    for (let i = 1; i < arguments.length; i++) {
+      for (let key in arguments[i]) {
+        obj[key] = arguments[i][key];
+      }
+    }
+    return obj;
   };
 
   // extend와 비슷하지만, 이번엔 이미 존재하는 key에 대해 값을 덮어쓰기 하지 않습니다.
   _.defaults = function(obj) {
+    for (let i = 1; i < arguments.length; i++) {
+      for (let key in arguments[i]) {
+        if (obj[key] === undefined) {
+          obj[key] = arguments[i][key];
+        }
+      }
+    }
+    return obj;
   };
 
 
