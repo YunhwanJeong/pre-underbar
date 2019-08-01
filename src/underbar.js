@@ -289,7 +289,7 @@
   };
 
 
-  /**
+/**
   * FUNCTIONS
   * =========
   *
@@ -298,20 +298,25 @@
   */
 
   // 최대 한번만 호출할 수 있는 함수를 리턴합니다. 이후의 호출은 이전에 한번 리턴된 값만을 리턴해야 합니다.
-  // TIP: alreadyCalled 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
-  // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
-  // TIP: We'll return a new function that delegates to the old one, but only
-  // if it hasn't been called before.
-  // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
   _.once = function(func) {
+    // TIP: 아래 변수는 클로저 scope (바깥 함수 범위)에 저장되며, 리턴된 새로운 함수가 호출될 때마다,
+    // 여전히 클로저 scope 내에 존재하므로, 리턴된 함수에서 사용할 수 있습니다.
     var alreadyCalled = false;
-    
-    
-      return function() {
-
+    var result;
+    // TIP: We'll return a new function that delegates to the old one, but only
+    // if it hasn't been called before.
+    return function(...args) {
+      if (!alreadyCalled) {
+        alreadyCalled = true;
+        result = func(...args);
         return result;
+      } else {
+        return result; 
+      }
+      // TIP: arguments 키워드 혹은, spread operator를 사용하세요.
     }
   };
+
 
   // 주어진 시간 (밀리초) 동안 함수를 지연한 다음 제공된 argument로 함수를 호출합니다.
   //
