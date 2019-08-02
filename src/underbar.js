@@ -342,9 +342,13 @@
   // 예를 들어, 다음을 호출할 경우
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
-  _.delay = function(func, wait) {
-    setTimeout;
+  _.delay = function(func, wait, ...args) {
+    setTimeout(func, wait, ...args);
   };
+  // _.delay = function(func, wait) {
+  //   let args = arguments
+  //   setTimeout(func, wait, args[2], args[3]);
+  // };
 
 
   /**
@@ -356,7 +360,25 @@
   // 새 배열에는 다차원 배열의 모든 요소가 포함되어야 합니다.
   //
   // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
+  /**pseudo code
+   * 다차원 배열을 순회하며 -> 배열이 아니면 바로 push -> 배열이면 배열이 아닌 게 나올 때 까지 파고들기 
+   */
   _.flatten = function(nestedArray, result) {
+    result = [];
+
+    for (let i of nestedArray) {
+      if (!Array.isArray(i)) {
+        result.push(nestedArray[i]);
+      } else {
+        while (Array.isArray(i)) {
+          for (let j of nestedArray[i]) {
+            if (!Array.isArray(j)) {
+              result.push(nestedArray[i][j]);
+            }
+          }
+        }
+      }
+    }
   };
 
   // 배열 내용의 순서를 랜덤하게 변경합니다.
