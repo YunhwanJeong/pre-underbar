@@ -342,13 +342,14 @@
   // 예를 들어, 다음을 호출할 경우
   // _.delay(someFunction, 500, 'a', 'b');
   // someFunction('a', 'b') 은 500ms 이후에 호출됩니다.
-  _.delay = function(func, wait, ...args) {
+  // _.delay = function(func, wait, ...args) {
+  //   setTimeout(func, wait, ...args);
+  // };
+  _.delay = function(func, wait) {
+    let argumentsArr = Array.from(arguments);
+    let args = argumentsArr.slice(2);
     setTimeout(func, wait, ...args);
   };
-  // _.delay = function(func, wait) {
-  //   let args = arguments
-  //   setTimeout(func, wait, args[2], args[3]);
-  // };
 
 
   /**
@@ -358,34 +359,102 @@
 
   // 다차원 배열을 가져와서, 1차원 배열로 변환합니다.
   // 새 배열에는 다차원 배열의 모든 요소가 포함되어야 합니다.
-  //
+  //  _.flatten = function(nestedArray, result) {
+  //  }
   // Hint: Array.isArray 를 사용해 배열인지 아닌지를 체크하세요.
   /**pseudo code
-   * 다차원 배열을 순회하며 -> 배열이 아니면 바로 push -> 배열이면 배열이 아닌 게 나올 때 까지 파고들기 
+   * 1. reduce concat
+   * 2. while
    */
-  _.flatten = function(nestedArray, result) {
-    result = [];
+  // 1. reduce를 재귀적으로 이용 (result x)
+  _.flatten = function(nestedArray) {
+    let reducer = (acc, val) => Array.isArray(val) ? acc.concat(_.flatten(val)) : acc.concat(val);
 
-    for (let i of nestedArray) {
-      if (!Array.isArray(i)) {
-        result.push(nestedArray[i]);
-      } else {
-        while (Array.isArray(i)) {
-          for (let j of nestedArray[i]) {
-            if (!Array.isArray(j)) {
-              result.push(nestedArray[i][j]);
-            }
-          }
-        }
-      }
-    }
+    return _.reduce(nestedArray, reducer, []);
   };
+
+  // 2. while문 활용 (pop, push 대신 shift, unshift 써도 무관)
+  // _.flatten = function(nestedArray) {
+  //   const stack = [...nestedArray];
+  //   const flattenedArr = [];
+
+  //   while (stack.length) {
+  //     const el = stack.pop();
+  //     if (Array.isArray(el)) {
+  //       stack.push(...el);
+  //     } else {
+  //       flattenedArr.push(el);
+  //     }
+  //   }
+  //   return flattenedArr.reverse();
+  // }
+
 
   // 배열 내용의 순서를 랜덤하게 변경합니다.
   //
   // TIP: 이 함수는 immutable해야 합니다.
+  /**pseudo code
+   * 1. for문
+   *  1-1 임의의 변수(es6 이전)
+   *  1-2 구조 분해 할당(es6 이후)
+   * 
+   * 2. while문
+   *  2-1 임의의 변수(es6 이전)
+   *  2-2 구조 분해 할당(es6 이후)
+   */
+  
+  //1-1
+  // _.shuffle = function(array) {
+  //   let shuffledArr = [...array];
+
+  //   for (let i = shuffledArr.length - 1; i > 0; i--) {
+  //     let j = Math.floor(Math.random() * i + 1);
+  //     let keeper = shuffledArr[i];
+  //     shuffledArr[i] = shuffledArr[j];
+  //     shuffledArr[j] = keeper;
+  //   }
+  //   return shuffledArr;
+  // };
+
+  //1-2
+  // _.shuffle = function(array) {
+  //   let shuffledArr = [...array];
+  //   for (let i = shuffledArr.length - 1; i > 0; i--) {
+  //     let j = Math.floor(Math.random() * i + 1);
+  //     [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+  //   }
+  //   return shuffledArr;
+  // }
+
+  //2-1
+  // _.shuffle = function(array) {
+  //   let shuffledArr = [...array];
+  //   let i = shuffledArr.length - 1, j, keeper
+
+  //   while (i > 0) {
+  //     i--;
+      
+  //     j = Math.floor(Math.random() * i + 1);
+  //     keeper = shuffledArr[i];
+  //     shuffledArr[i] = shuffledArr[j];
+  //     shuffledArr[j] = keeper;
+  //   }
+  //   return shuffledArr;
+  // }
+  
+  //2-2
   _.shuffle = function(array) {
-  };
+    let shuffledArr = [...array];
+    let i = shuffledArr.length - 1, j, keeper
+
+    while (i > 0) {
+      i--;
+      
+      j = Math.floor(Math.random() * i + 1);
+      [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+    }
+    return shuffledArr;
+  }
 
 
   /**
