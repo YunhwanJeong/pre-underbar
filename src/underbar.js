@@ -467,7 +467,25 @@
 
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
+
+  /**
+   * functionOrKey라는 이름의 메소드를 리스트의 각 값에 대해 호출하세요.
+   * apply를 참조할 것.
+   * 
+   * <알고리즘>
+   * functionOrKey가 함수 레퍼런스인지 메소드 이름인지 체크한다
+   * 메소드 이름이면 window 객체에 존재 여부를 체크하고 함수인지 확인 후 맞으면 각 요소에 대해 apply 한다
+   * 이외의 상황이면(함수 레퍼런스면) collection 각각에 대해 실행시킨다
+   */
   _.invoke = function(collection, functionOrKey, args) {
+    if(typeof functionOrKey === "string") {
+      let fnOrKey = window[functionOrKey];
+      if(fnOrKey && typeof fnOrKey === "function") {
+        fnOrKey.apply(null, collection);
+      }
+    } else {
+        functionOrKey.apply(null, collection);
+    }
   };
 
   // Sort the object's values by a criterion produced by an iterator.
