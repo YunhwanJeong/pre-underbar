@@ -468,23 +468,25 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
 
-  /**
-   * functionOrKey라는 이름의 메소드를 리스트의 각 값에 대해 호출하세요.
-   * apply를 참조할 것.
-   * 
-   * <알고리즘>
-   * functionOrKey가 함수 레퍼런스인지 메소드 이름인지 체크한다
-   * 메소드 이름이면 window 객체에 존재 여부를 체크하고 함수인지 확인 후 맞으면 각 요소에 대해 apply 한다
-   * 이외의 상황이면(함수 레퍼런스면) collection 각각에 대해 실행시킨다
+  /**주제: parameter functionOrKey에 메소드를 전달받아 collection 내의 list의 각 요소에 호출하는 함수를 작성.
+   * 기능 한 줄 정의: 함수 또는 함수명을 인자로 전달받아 -> collection의 각 요소들에 대해 apply한 결과를 리턴
+   * 연관 개념: apply arguments
+   * 유의점: args는 각 요소들에 특정 symbol을 더한다.
+   * 알고리즘: 함수가 전달되면 collection에 함수를 apply하여 리턴 / 함수명이 전달되면 함수명을 찾아 collection에 함수를 apply하여 리턴
+   * 수도코드: collection, functionOrKey, args 입력
+   *  -functionOrKey가 함수이면 functionOrKey.apply(null, collection)
+   *  -functionOrKey가 string이면 -> typeof window[functionOrKey]가 함수이면 -> .apply(null, collection)
+   * 함수에 this를 어떻게 전달하냐
    */
   _.invoke = function(collection, functionOrKey, args) {
-    if(typeof functionOrKey === "string") {
-      let fnOrKey = window[functionOrKey];
-      if(fnOrKey && typeof fnOrKey === "function") {
-        fnOrKey.apply(null, collection);
-      }
+    if(typeof functionOrKey === "function") {
+      return functionOrKey.apply(null, collection);
     } else {
-        functionOrKey.apply(null, collection);
+      let fn = window[functionOrKey];
+
+      if(typeof fn === "function") {
+        return fn.apply(null, collection);
+      }
     }
   };
 
