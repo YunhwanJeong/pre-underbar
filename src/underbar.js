@@ -470,24 +470,34 @@
 
   /**주제: parameter functionOrKey에 메소드를 전달받아 collection 내의 list의 각 요소에 호출하는 함수를 작성.
    * 기능 한 줄 정의: 함수 또는 함수명을 인자로 전달받아 -> collection의 각 요소들에 대해 apply한 결과를 리턴
-   * 연관 개념: apply arguments
-   * 유의점: args는 각 요소들에 특정 symbol을 더한다.
-   * 알고리즘: 함수가 전달되면 collection에 함수를 apply하여 리턴 / 함수명이 전달되면 함수명을 찾아 collection에 함수를 apply하여 리턴
+   * 연관 개념: apply, map
+   * 유의점: apply가 인수를 배열로 받지만, 모든 인수에 대해 한 번씩 실행하는것은 아니다. args는 각 요소들에 특정 symbol을 더한다.
+   * 알고리즘: 함수가 전달되면 map, apply를 활용 / 함수명이 전달되면 함수명을 찾아 map, apply하여 리턴
    * 수도코드: collection, functionOrKey, args 입력
-   *  -functionOrKey가 함수이면 functionOrKey.apply(null, collection)
+   *  -functionOrKey가 함수이면 -> 
    *  -functionOrKey가 string이면 -> typeof window[functionOrKey]가 함수이면 -> .apply(null, collection)
-   * 함수에 this를 어떻게 전달하냐
    */
   _.invoke = function(collection, functionOrKey, args) {
     if(typeof functionOrKey === "function") {
-      return functionOrKey.apply(null, collection);
-    } else {
-      let fn = window[functionOrKey];
+      return _.map(collection, function(element) {
+        return functionOrKey.apply(element);
+      });
+    } else if(typeof collection[0] === 'string') {
+      let fn = String.prototype[functionOrKey];
 
-      if(typeof fn === "function") {
-        return fn.apply(null, collection);
-      }
+      return _.map(collection, function(element) {
+        return fn.apply(element);
+      });
+    } else if(Array.isArray(collection[0])) {
+      let fn = Array.prototype[functionOrKey];
+
+      return _.map(collection, function(element) {
+        return fn.apply(element);
+      });
     }
+
+      
+
   };
 
   // Sort the object's values by a criterion produced by an iterator.
