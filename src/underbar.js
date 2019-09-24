@@ -494,17 +494,36 @@
       return _.map(collection, function(element) {
         return fn.apply(element);
       });
-    }
-
-      
-
+    };
   };
 
   // Sort the object's values by a criterion produced by an iterator.
   // If iterator is a string, sort objects by that property with the name
   // of that string. For example, _.sortBy(people, 'name') should sort
   // an array of people by their name.
+
+  /**pseudo code
+   * 
+   * 반복자가 문자열이면 대괄호표기법 사용하여 sort.
+   * 나머지는 undefined 고려하여 sort.
+   * 
+   * 
+   */
   _.sortBy = function(collection, iterator) {
+    if(typeof iterator === "string") {
+      collection.sort(function(a, b) {
+        return a[iterator] - b[iterator];
+      })
+    } else {
+      collection.sort(function(a, b) {
+        if(!a || !b) {
+          return 1;
+        } else {
+          return iterator(a) - iterator(b);
+        }
+      })
+    }
+    return collection;
   };
 
   // Zip together two or more arrays with elements of the same index
@@ -512,7 +531,17 @@
   //
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
+
+  /**pseudo code
+   * 
+   * 인수들을 배열로 만들어 변수로 선언.
+   * 
+   * 
+   */
   _.zip = function() {
+    let args = [...arguments];
+
+    _.map()
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
