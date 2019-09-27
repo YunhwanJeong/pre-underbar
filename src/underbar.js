@@ -534,14 +534,30 @@
 
   /**pseudo code
    * 
-   * 인수들을 배열로 만들어 변수로 선언.
-   * 
+   * 인수들을 배열로 만들어 변수 args 선언.
+   * length 내림차순으로 sort.
+   * 2중 loop
    * 
    */
   _.zip = function() {
+    let result = [];
     let args = [...arguments];
+    
+    args.sort(function(a, b) {
+      return b.length - a.length;
+    });
+    let longestLength = args[0].length;
 
-    _.map()
+
+    for(let i = 0; i < longestLength; i++) {
+      let arr = [];
+      for(let j = 0; j < args.length; j++) {
+        arr.push(args[j].shift());
+      }
+      result.push(arr);
+    }
+
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
