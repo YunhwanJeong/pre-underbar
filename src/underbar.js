@@ -562,12 +562,51 @@
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
+
+  /**pseudo code
+   * 
+   * 주어진 배열의 요소들 중 중복되는 요소들만 모은 새로운 배열을 리턴.
+   * 
+   * 인자들을 배열로 만듦.
+   * flatten 활용하여 하나의 배열로 만듦.
+   * indexof 활용하여 -1 리턴되면 넘어가고, 아니면 새로운 배열에 집어넣고 원본은 삭제.
+   */
   _.intersection = function() {
+    let result = [];
+    let args = [...arguments];
+    let flattenArgs = _.flatten(args);
+
+    for(let i = 0; i < flattenArgs.length; i++) {
+      if(_.indexOf(flattenArgs.slice(i + 1), flattenArgs[i]) !== -1) {
+        result.push(flattenArgs[i]);
+        flattenArgs.splice(i, 1);
+      }
+    }
+    return result;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
+
+  /**pseudo code
+   * 
+   * 첫 번째를 제외한 나머지 인자들을 배열로 만듦.
+   * indexOf 활용.
+   */
   _.difference = function(array) {
+    let result = [];
+    let args = [...arguments];
+    let extraArgs = args.slice(1);
+    let flattenExtraArgs = _.flatten(extraArgs);
+    let standardArg = array;
+
+    for(let i = 0; i < standardArg.length; i++) {
+      if(_.indexOf(flattenExtraArgs, standardArg[i]) === -1) {
+        result.push(standardArg[i]);
+      }
+    }
+
+    return result;
   };
 
   // Memorize an expensive function's results by storing them. You may assume
